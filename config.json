@@ -13,7 +13,7 @@
   "checkApproval": true,
   "language": "en",
   "notesLanguage": "change to your language with ISO 639-1 code, available languages: vi (Vietnamese), en (English)",
-  "nickNameBot": "[.] 𝑴𝑰𝑳𝑶𝑵 𝑩𝑶𝑻",
+  "nickNameBot": "[.] 𝑴𝑰𝑳𝑶𝑵 𝑩𝑶",
   "prefix": ".",
   "adminOnly": {
     "enable": false,
