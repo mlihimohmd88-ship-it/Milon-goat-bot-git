@@ -6,43 +6,49 @@ module.exports = {
   config: {
     name: "leave",
     aliases: ["out", "লিভ"],
-    version: "1.2",
+    version: "1.3",
     author: "Sandy/fixed Milon",
     countDown: 5,
-    role: 1, 
+    role: 1,
     shortDescription: "bot will leave gc",
-    longDescription: "প্রেফিক্স ছাড়া বা সহ গ্রুপ ত্যাগ করার কমান্ড",
+    longDescription: "أمر مغادرة المجموعة مع رسالة وداع",
     category: "owner",
     guide: "{pn} [tid,blank]"
   },
 
-  // প্রেফিক্স ছাড়া কাজ করার প্রধান জায়গা
+  // العمل بدون بادئة
   onChat: async function ({ api, event }) {
-    if (event.body) {
-      const message = event.body.toLowerCase();
-      // এখানে আপনি চাইলে 'leave' এর সাথে 'out' বা 'লিভ' ও যোগ করতে পারেন
-      if (message === "leave" || message === "out") {
-        
-        // পারমিশন চেক (Role 1 মানে অ্যাডমিন/ওনার)
-        // নোট: আপনার সিস্টেমে যদি onChat এ role কাজ না করে তবে এখানে manual check লাগবে
-        
-        return api.sendMessage(
-          'আমি এই গ্রুপ থেকে লিভ নিচ্ছি, আমাকে ব্যবহার করার জন্য ধন্যবাদ! 😙', 
-          event.threadID, 
-          () => api.removeUserFromGroup(api.getCurrentUserID(), event.threadID)
-        );
-      }
+    if (!event.body) return;
+
+    const message = event.body.trim().toLowerCase();
+
+    if (message === "leave" || message === "out") {
+      return api.sendMessage(
+        "حان وقت المغادرة، أتمنى لكم وقتًا جميلًا. أنا في خدمة فادي، أدخلني متى أردت.",
+        event.threadID,
+        () => {
+          api.removeUserFromGroup(
+            api.getCurrentUserID(),
+            event.threadID
+          );
+        }
+      );
     }
   },
 
-  // প্রেফিক্স সহ কাজ করার জন্য (যেমন: /leave 123456)
+  // العمل بالبادئة
   onStart: async function ({ api, event, args }) {
-    let id = args[0] ? args[0] : event.threadID;
+    const id = args[0] || event.threadID;
 
     return api.sendMessage(
-      'আমি এই গ্রুপ থেকে লিভ নিচ্ছি, আমাকে ব্যবহার করার জন্য ধন্যবাদ! 😙', 
-      id, 
-      () => api.removeUserFromGroup(api.getCurrentUserID(), id)
+      "حان وقت المغادرة، أتمنى لكم وقتًا جميلًا. أنا في خدمة فادي، أدخلني متى أردت.",
+      id,
+      () => {
+        api.removeUserFromGroup(
+          api.getCurrentUserID(),
+          id
+        );
+      }
     );
   }
 };
